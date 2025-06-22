@@ -39,12 +39,10 @@ estado enum('Disponível', 'Alugado', 'Manutenção') not null
 );
 
 create Table LocacaoVeiculo(
-idLocacao int primary key not null,
-idVeiculo int primary key not null,
-constraint fk_Locacao
-foreign key(idLocacao) references Locacao(idLocacao),
-constraint fk_Veiculo
-foreign key(idVeiculo) references Veiculo(idVeiculo)
+idLocacao int not null,
+idVeiculo int not null,
+constraint fk_Locacao_LocacaoVeiculo foreign key (idLocacao) references Locacao(idLocacao),
+constraint fk_Veiculo_LocacaoVeiculo foreign key (idVeiculo) references Veiculo(idVeiculo)
 );
 
 create table Manutencao(
