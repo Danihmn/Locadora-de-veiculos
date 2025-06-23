@@ -2,7 +2,7 @@ create database LocadoraVeiculos;
 use LocadoraVeiculos;
 
 -- Cria as tabelas
-create table Ciente(
+create table Cliente(
 idCliente int primary key not null,
 CPF varchar(20) not null,
 nome varchar(50) not null,
@@ -158,3 +158,28 @@ insert into LocacaoVeiculo (idLocacao, idVeiculo) values
 (18, 2),
 (19, 10),
 (20, 8);
+
+-- Consulta de todas as manutenções
+select descricao, dataManutencao, custo
+from Manutencao;
+
+-- Consulta o valor total arrecadado em manutenções
+select sum(valorTotal) as Valor_Arrecadado
+from Pagamento
+where estado = 'Pago';
+
+-- Consulta quantas vezes cada modelo de cada marca já foi alocado
+select modelo, marca, count(*) as Total_Locacoes
+from LocacaoVeiculo
+inner join Veiculo on LocacaoVeiculo.idVeiculo = Veiculo.idVeiculo
+group by modelo, marca
+order by TotalLocacoes desc;
+
+-- Consulta clientes devedores e seus respectivos valores totais
+select Cliente.nome as Cliente_Devedor, sum(Pagamento.valorTotal) as Valor_Pendente
+from Locacao
+inner join Pagamento on Locacao.idPagamento = Pagamento.idPagamento
+inner join Cliente on Locacao.idCliente = Cliente.idCliente
+where estado = 'Pendente'
+group by Cliente.nome
+order by Cliente.nome;
