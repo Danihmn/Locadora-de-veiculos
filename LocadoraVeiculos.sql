@@ -173,7 +173,7 @@ select modelo, marca, count(*) as Total_Locacoes
 from LocacaoVeiculo
 inner join Veiculo on LocacaoVeiculo.idVeiculo = Veiculo.idVeiculo
 group by modelo, marca
-order by TotalLocacoes desc;
+order by Total_Locacoes desc;
 
 -- Consulta clientes devedores e seus respectivos valores totais
 select Cliente.nome as Cliente_Devedor, sum(Pagamento.valorTotal) as Valor_Pendente
